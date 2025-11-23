@@ -12,6 +12,7 @@ import {
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useAuth} from '../../context/AuthContext';
+import {generateUniqueId} from '../../utils/helpers';
 
 const CreateRideScreen = ({navigation}) => {
   const {user} = useAuth();
@@ -49,7 +50,7 @@ const CreateRideScreen = ({navigation}) => {
 
     try {
       const ride = {
-        id: Date.now().toString(),
+        id: generateUniqueId(),
         from,
         to,
         date,

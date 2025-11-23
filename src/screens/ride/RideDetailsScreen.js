@@ -71,8 +71,9 @@ const RideDetailsScreen = ({route, navigation}) => {
                 await AsyncStorage.setItem('allRides', JSON.stringify(allRides));
               }
 
-              // Add to driver's earnings
-              await addPoints(totalFare, `Passenger booked ride to ${ride.to}`);
+              // Note: In production, backend should credit driver's account
+              // For now, simulating driver payment in the booking flow
+              // The actual driver earning would be handled server-side
 
               Alert.alert('Success', 'Ride booked successfully!', [
                 {text: 'OK', onPress: () => navigation.goBack()},

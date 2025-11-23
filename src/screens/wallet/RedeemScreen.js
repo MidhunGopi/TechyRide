@@ -40,10 +40,10 @@ const RedeemScreen = ({navigation}) => {
       return;
     }
 
-    // Basic UPI ID validation
-    const upiPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9]+$/;
+    // UPI ID validation - supports various formats
+    const upiPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+$/;
     if (!upiPattern.test(upiId)) {
-      Alert.alert('Error', 'Please enter a valid UPI ID');
+      Alert.alert('Error', 'Please enter a valid UPI ID (e.g., user@bank)');
       return;
     }
 

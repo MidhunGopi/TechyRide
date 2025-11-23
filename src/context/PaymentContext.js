@@ -1,7 +1,11 @@
 import React, {createContext, useState, useContext, useEffect} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {generateUniqueId} from '../utils/helpers';
 
 const PaymentContext = createContext();
+
+// Configuration constants
+const POINTS_TO_INR_RATE = 1; // 1 Point = 1 INR
 
 export const PaymentProvider = ({children}) => {
   const [points, setPoints] = useState(0);
@@ -31,7 +35,7 @@ export const PaymentProvider = ({children}) => {
     try {
       const newPoints = points + amount;
       const transaction = {
-        id: Date.now().toString(),
+        id: generateUniqueId(),
         type: 'credit',
         amount,
         description,
@@ -61,7 +65,7 @@ export const PaymentProvider = ({children}) => {
 
       const newPoints = points - amount;
       const transaction = {
-        id: Date.now().toString(),
+        id: generateUniqueId(),
         type: 'debit',
         amount,
         description,
@@ -85,8 +89,8 @@ export const PaymentProvider = ({children}) => {
 
   const redeemPoints = async (amount, upiId) => {
     try {
-      // Points to INR conversion rate (e.g., 1 point = 1 INR)
-      const inrAmount = amount;
+      // Points to INR conversion using configured rate
+      const inrAmount = amount * POINTS_TO_INR_RATE;
 
       if (points < amount) {
         throw new Error('Insufficient points');

@@ -1,5 +1,6 @@
 import React, {createContext, useState, useContext, useEffect} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {generateUniqueId} from '../utils/helpers';
 
 const AuthContext = createContext();
 
@@ -35,7 +36,7 @@ export const AuthProvider = ({children}) => {
       // In production, this would make an API call to authenticate
       // For now, we'll simulate authentication
       const userData = {
-        id: Date.now().toString(),
+        id: generateUniqueId(),
         email,
         name: email.split('@')[0],
         verified: true,
@@ -60,7 +61,7 @@ export const AuthProvider = ({children}) => {
 
       // In production, send verification email
       const userData = {
-        id: Date.now().toString(),
+        id: generateUniqueId(),
         email,
         name,
         verified: false,
